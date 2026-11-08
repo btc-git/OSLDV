@@ -1,5 +1,5 @@
 """
-Open Source Location Data Visualizer - github.com/btc-git/OS-LOC-DAT-VIZ
+Open Source Location Data Visualizer - github.com/btc-git/OSLDV
 Licensed under the GNU General Public License v3.0 - see LICENSE file for details
 """
 
@@ -283,7 +283,7 @@ def create_empty_geolibre_project(project_path):
     project_path = Path(project_path)
     project_path.parent.mkdir(parents=True, exist_ok=True)
     project = _viewer_project_payload(
-        "OS-LOC-DAT-VIZ Viewer",
+        "OSLDV Viewer",
         {
             "center": [0, 0],
             "zoom": 2,

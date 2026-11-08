@@ -36,5 +36,5 @@ altgraph 0.17.5, packaging 26.3, pefile 2024.8.26, and pywin32-ctypes 0.2.3.
 The environment also pins setuptools 65.5.1. Their supplied license files are
 also collected into packaged builds.
 
-OS-LOC-DAT-VIZ and its GeoLibre plugin are licensed under GNU GPL v3.0; see
+OSLDV and its GeoLibre plugin are licensed under GNU GPL v3.0; see
 `LICENSE`. This notice is informational and is not legal advice.

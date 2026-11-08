@@ -11,14 +11,14 @@ workflows.
 - License: MIT; see `LICENSE-GeoLibre.txt`
 
 The application verifies the archive hash before extracting it into its own
-per-user runtime directory. It installs the OS-LOC viewer plugin in GeoLibre's
+per-user runtime directory. It installs the OSLDV viewer plugin in GeoLibre's
 standard per-user plugin directory. Simplified chrome is enabled by generated
-OS-LOC companion projects and by the clean project used for reviewing existing
+OSLDV companion projects and by the clean project used for reviewing existing
 KML or GeoJSON files.
 
 ## Update prompts
 
-The included viewer is pinned and updated through OS-LOC-DAT-VIZ releases after
+The included viewer is pinned and updated through OSLDV releases after
 compatibility testing. GeoLibre's **Download update package** button downloads a
 standalone installer; it does not replace the portable archive included here or
 the version this application's launcher selects. Installing that download can
@@ -27,7 +27,7 @@ the pinned bundle.
 
 To stop the prompts, open GeoLibre **Settings -> Updates**, turn off **Check for
 updates on startup**, and restart the viewer. If Settings is hidden by the
-OS-LOC simplified interface, close the viewer and make a copy of its `.geolibre`
+OSLDV simplified interface, close the viewer and make a copy of its `.geolibre`
 project. In that copy, change
 `plugins.settings.osloc-dat-viz-viewer.simplifiedViewer` from `true` to `false`,
 then open the copy in GeoLibre to access the Settings toolbar button. Reopen

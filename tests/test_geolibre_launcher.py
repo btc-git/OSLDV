@@ -1,5 +1,5 @@
 """
-Open Source Location Data Visualizer - github.com/btc-git/OS-LOC-DAT-VIZ
+Open Source Location Data Visualizer - github.com/btc-git/OSLDV
 Licensed under the GNU General Public License v3.0 - see LICENSE file for details
 """
 
@@ -42,9 +42,22 @@ from license_dialog import LicenseDialog
 from dialogs import DisclaimerDialog
 from main_window import MainWindow
 from import_wizard import ImportWizardDialog, SourceFileLoadWorker
+from version import APP_NAME, APP_USER_MODEL_ID
 
 
 class GeoLibreProjectTests(unittest.TestCase):
+    def test_application_and_viewer_identifiers_remain_compatible(self):
+        self.assertEqual("osloc-dat-viz-viewer", VIEWER_PLUGIN_ID)
+        self.assertEqual("org.geolibre.desktop", geolibre_launcher.GEOLIBRE_APP_ID)
+        self.assertEqual("Open Source Location Data Visualizer", APP_NAME)
+        self.assertEqual("opensource.locationvisualizer", APP_USER_MODEL_ID)
+        local_data = Path("synthetic-local-app-data").resolve()
+        with patch.dict(os.environ, {"LOCALAPPDATA": str(local_data)}):
+            self.assertEqual(
+                local_data / "OpenSource" / "LocationDataVisualizer" / "GeoLibreViewer",
+                geolibre_launcher.default_runtime_root(),
+            )
+
     def test_empty_project_activates_drop_ready_viewer(self):
         with tempfile.TemporaryDirectory() as temporary_directory:
             project_path = create_empty_geolibre_project(
@@ -53,7 +66,7 @@ class GeoLibreProjectTests(unittest.TestCase):
             project = json.loads(project_path.read_text(encoding="utf-8"))
             plugin_settings = project["plugins"]["settings"][VIEWER_PLUGIN_ID]
 
-            self.assertEqual("OS-LOC-DAT-VIZ Viewer", project["name"])
+            self.assertEqual("OSLDV Viewer", project["name"])
             self.assertEqual([], project["layers"])
             self.assertEqual(
                 [VIEWER_PLUGIN_ID], project["plugins"]["activePluginIds"]
@@ -62,6 +75,13 @@ class GeoLibreProjectTests(unittest.TestCase):
             self.assertTrue(plugin_settings["autoFocus"])
             self.assertTrue(plugin_settings["simplifiedViewer"])
             self.assertIsNone(plugin_settings["startupDatasetId"])
+            self.assertEqual(
+                {"autoShowAll", "autoFocus", "simplifiedViewer", "startupDatasetId"},
+                set(plugin_settings),
+            )
+            self.assertEqual(
+                "OS-LocationDataVisualizer", project["metadata"]["generatedBy"]
+            )
 
     def test_project_references_generated_geojson_and_activates_viewer(self):
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -98,6 +118,9 @@ class GeoLibreProjectTests(unittest.TestCase):
             self.assertEqual([-77.7, 43.1, -77.5, 43.3], project["mapView"]["bbox"])
             self.assertEqual(str(geojson_path.resolve()), layer["sourcePath"])
             self.assertTrue(layer["metadata"]["localFileReloadable"])
+            self.assertEqual(
+                "OS-LocationDataVisualizer", layer["metadata"]["generatedBy"]
+            )
             self.assertNotIn("geojson", layer)
             self.assertEqual([VIEWER_PLUGIN_ID], project["plugins"]["activePluginIds"])
             self.assertFalse(plugin_settings["autoShowAll"])
@@ -124,7 +147,7 @@ class GeoLibreProvisioningTests(unittest.TestCase):
         (plugin_root / "plugin.json").write_text(
             json.dumps({
                 "id": VIEWER_PLUGIN_ID,
-                "name": "OS-LOC-DAT-VIZ Viewer",
+                "name": "OSLDV Viewer",
                 "version": "test",
                 "entry": "dist/index.js",
                 "style": "dist/style.css",
@@ -349,6 +372,23 @@ class GenerationActionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.app = QApplication.instance() or QApplication([])
+
+    def test_renamed_repository_link_keeps_settings_namespace(self):
+        window = MainWindow()
+        self.addCleanup(window.close)
+        self.assertEqual("OpenSource", window.settings.organizationName())
+        self.assertEqual("LocationDataVisualizer", window.settings.applicationName())
+        self.assertTrue(any(
+            'href="https://github.com/btc-git/OSLDV"' in label.text()
+            for label in window.findChildren(QLabel)
+        ))
+        dialog = DisclaimerDialog(window)
+        self.addCleanup(dialog.close)
+        self.assertTrue(any(
+            "OSLDV is licensed" in label.text()
+            and 'href="https://github.com/btc-git/OSLDV"' in label.text()
+            for label in dialog.findChildren(QLabel)
+        ))
 
     def test_window_exposes_process_and_viewer_actions(self):
         with patch.object(MainWindow, "show_disclaimer_dialog"):
@@ -601,7 +641,8 @@ class GenerationActionTests(unittest.TestCase):
         self.assertEqual(
             "Licenses & Third-Party Notices", dialog.windowTitle()
         )
-        self.assertIn("OS-LOC-DAT-VIZ - GNU GPL v3.0", license_text)
+        self.assertIn("OSLDV - GNU GPL v3.0", license_text)
+        self.assertIn("https://github.com/btc-git/OSLDV\n", license_text)
         self.assertIn("THIRD-PARTY DEPENDENCY INVENTORY", license_text)
         self.assertIn("PyQt6", license_text)
         self.assertIn("pandas", license_text)

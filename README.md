@@ -1,4 +1,4 @@
-# Open Source Location Data Visualizer
+# Open Source Location Data Visualizer (OSLDV)
 
 ### Development Transparency
 This application was developed with AI assistance and has undergone human review and testing. The program itself does not use AI. As with any AI-assisted software, additional scrutiny and verification are recommended before critical use.
@@ -9,13 +9,13 @@ A standalone desktop application for **quick triage and initial visualization** 
 
 ⚠️ **IMPORTANT: This is for initial review only. All findings must be analyzed and verified.**
 
-<a href="https://github.com/btc-git/OS-LOC-DAT-VIZ/releases/latest/download/OS-LocationDataVisualizer.exe" style="text-decoration:none;font-weight:bold;font-size:1.1em;">
+<a href="https://github.com/btc-git/OSLDV/releases/latest/download/OS-LocationDataVisualizer.exe" style="text-decoration:none;font-weight:bold;font-size:1.1em;">
 ⬇️ Download the latest stable OS-LocationDataVisualizer.exe
 </a>
 <br>
 
 Development preview builds are marked **Pre-release** on the
-[GitHub Releases page](https://github.com/btc-git/OS-LOC-DAT-VIZ/releases).
+[GitHub Releases page](https://github.com/btc-git/OSLDV/releases).
 They do not replace the stable download above.
 
 ## Features
@@ -81,11 +81,11 @@ Input hashes are captured when records, cell site lists, or marker lists are loa
 
 Before saving, the application confirms replacement of any existing sibling outputs, not just the selected GeoJSON. All required files, including the TXT log and the optional viewer project, are staged before existing files are replaced. An ordinary save failure restores the previous output set; if recovery itself is blocked, the error identifies retained backup files. This protects against normal I/O failures, but does not provide a crash-atomic multi-file transaction: keep backups of important files independently.
 
-**Process and Open in Viewer** also creates a same-named `.geolibre` companion beside the outputs. This small viewer project does not duplicate the source records: it references the GeoJSON and stores its path, display name, dataset identifier, map extent, and viewer/plugin settings so GeoLibre can reopen it with the OS-LOC interface and frame its events automatically. Keep the `.geolibre` file with its GeoJSON; moving or renaming the GeoJSON can break the reference. The project may be deleted without affecting the KML, GeoJSON, or TXT files if convenient reopening is not needed. **Open Viewer** starts a clean, plugin-enabled session. Use the prominent **Load GeoJSON** button beneath the viewer-panel title for previous OS-LOC exports; repeat it to add more record sets. KML files remain available through GeoLibre drag and drop. On first use, the application verifies and extracts its pinned GeoLibre portable bundle and installs the included OS-LOC viewer plugin in GeoLibre's per-user plugin directory. Because GeoLibre enforces one running instance per Windows session, close any other GeoLibre window before starting the included viewer.
+**Process and Open in Viewer** also creates a same-named `.geolibre` companion beside the outputs. This small viewer project does not duplicate the source records: it references the GeoJSON and stores its path, display name, dataset identifier, map extent, and viewer/plugin settings so GeoLibre can reopen it with the OSLDV interface and frame its events automatically. Keep the `.geolibre` file with its GeoJSON; moving or renaming the GeoJSON can break the reference. The project may be deleted without affecting the KML, GeoJSON, or TXT files if convenient reopening is not needed. **Open Viewer** starts a clean, plugin-enabled session. Use the prominent **Load GeoJSON** button beneath the viewer-panel title for previous OSLDV exports; repeat it to add more record sets. KML files remain available through GeoLibre drag and drop. On first use, the application verifies and extracts its pinned GeoLibre portable bundle and installs the included OSLDV viewer plugin in GeoLibre's per-user plugin directory. Because GeoLibre enforces one running instance per Windows session, close any other GeoLibre window before starting the included viewer.
 
 For original carrier records that do not match a template, the import wizard opens automatically. It supports CSV, XLS, and XLSX files. Select the worksheet, the row containing the column names, and the record type, then match the source columns to the application fields. Its live preview shows the first 25 source rows with each original column name and the application field currently matched to it. Azimuth may be left unmapped when it is unavailable; the application will use a 360-degree visualization. Imported records are prepared in memory and the original file is not modified.
 
-The included viewer is updated through tested OS-LOC-DAT-VIZ releases.
+The included viewer is updated through tested OSLDV releases.
 GeoLibre's update button offers a standalone installer; it does not update
 our pinned portable bundle. To suppress startup prompts, use GeoLibre
 **Settings -> Updates -> Check for updates on startup**. See
@@ -167,7 +167,7 @@ Warnings and the TXT log summarize these defaults and omissions, which must be i
 
 ## Open Source & Contributing
 
-This is an open source project. Found a bug or have a suggestion? [Open an issue or suggest a feature here.](https://github.com/btc-git/OS-LOC-DAT-VIZ/issues)
+This is an open source project. Found a bug or have a suggestion? [Open an issue or suggest a feature here.](https://github.com/btc-git/OSLDV/issues)
 
 
 ## Installation & Distribution

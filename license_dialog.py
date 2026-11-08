@@ -1,5 +1,5 @@
 """
-Open Source Location Data Visualizer - github.com/btc-git/OS-LOC-DAT-VIZ
+Open Source Location Data Visualizer - github.com/btc-git/OSLDV
 Licensed under the GNU General Public License v3.0 - see LICENSE file for details
 """
 
@@ -20,7 +20,7 @@ class LicenseDialog(QDialog):
         layout = QVBoxLayout(self)
 
         notice_label = QLabel(
-            "OS-LOC-DAT-VIZ is licensed under GNU GPL v3.0. This distribution "
+            "OSLDV is licensed under GNU GPL v3.0. This distribution "
             "also packages the unmodified GeoLibre Desktop 3.0.0 application "
             "for viewer functionality; GeoLibre is separately licensed under "
             "the MIT License. The project license, dependency inventory, and "
@@ -133,8 +133,8 @@ class LicenseDialog(QDialog):
         )
         separator = "=" * 72
         sections = [
-            "OS-LOC-DAT-VIZ - GNU GPL v3.0\n"
-            "https://github.com/btc-git/OS-LOC-DAT-VIZ\n\n"
+            "OSLDV - GNU GPL v3.0\n"
+            "https://github.com/btc-git/OSLDV\n\n"
             f"{project_license.rstrip()}",
             "THIRD-PARTY DEPENDENCY INVENTORY\n\n"
             f"{third_party_notices.rstrip()}",

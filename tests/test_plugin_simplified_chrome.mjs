@@ -1,5 +1,5 @@
 /*
- * Open Source Location Data Visualizer - github.com/btc-git/OS-LOC-DAT-VIZ
+ * Open Source Location Data Visualizer - github.com/btc-git/OSLDV
  * Licensed under the GNU General Public License v3.0 - see LICENSE for details
  */
 
@@ -22,7 +22,7 @@ const toolbar = {
 };
 const pluginButton = {
     getAttribute(name) {
-        return name === "aria-label" ? "OS-LOC-DAT-VIZ" : null;
+        return name === "aria-label" ? "OSLDV" : null;
     },
     closest(selector) {
         return selector === "header" ? toolbar : null;
@@ -77,6 +77,10 @@ const {
     sharedPointVisibilityFilter,
 } = pluginModule;
 const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
+assert.equal(plugin.id, "osloc-dat-viz-viewer");
+assert.equal(manifest.id, plugin.id);
+assert.equal(plugin.name, "OSLDV Viewer");
+assert.equal(manifest.name, plugin.name);
 assert.equal(plugin.version, manifest.version);
 assert.equal(plugin.restoresPanelCollapseState, true);
 
@@ -176,9 +180,24 @@ const previousExport = {
     }],
 };
 assert.equal(parseOslocGeoJson(JSON.stringify(previousExport)).name, "Previous Export");
+const legacyExport = {
+    type: "FeatureCollection",
+    osloc_export_id: "legacy-export",
+    features: [{
+        ...previousExport.features[0],
+        properties: {
+            osloc_export_id: "legacy-export",
+            osloc_export_name: "Legacy Export",
+            osloc_event_id: "event-1",
+        },
+    }],
+};
+const parsedLegacyExport = parseOslocGeoJson(JSON.stringify(legacyExport));
+assert.equal(parsedLegacyExport.datasetId, "legacy-export");
+assert.equal(parsedLegacyExport.name, "Legacy Export");
 assert.throws(
     () => parseOslocGeoJson('{"type":"FeatureCollection","features":[]}'),
-    /OS-LOC-DAT-VIZ event metadata/,
+    /OSLDV event metadata/,
 );
 
 let importOptions = null;
@@ -194,6 +213,7 @@ const imported = await loadOslocGeoJson({
     },
 });
 assert.deepEqual(importOptions.extensions, ["geojson"]);
+assert.equal(importOptions.description, "OSLDV GeoJSON");
 assert.equal(imported.layerId, "loaded-layer");
 assert.equal(addedLayer.name, "Previous Export");
 assert.deepEqual(addedLayer.data, previousExport);
@@ -207,18 +227,41 @@ assert.equal(
 );
 
 let panelOpenCalls = 0;
+let registeredPanel = null;
+let registeredMenu = null;
 const app = {
     getMap() { return null; },
-    registerRightPanel() { return () => { }; },
-    registerToolbarMenu() { return () => { }; },
-    openRightPanel() { panelOpenCalls += 1; },
+    registerRightPanel(panel) { registeredPanel = panel; return () => { }; },
+    registerToolbarMenu(menu) { registeredMenu = menu; return () => { }; },
+    openRightPanel(id) {
+        assert.equal(id, "osloc-dat-viz-panel");
+        panelOpenCalls += 1;
+    },
     closeRightPanel() { },
     closeFloatingPanel() { },
 };
 const simplifiedClass = "osloc-simplified-viewer-toolbar";
 
-plugin.applyProjectState(app, { simplifiedViewer: true });
+const savedProject = {
+    plugins: {
+        activePluginIds: ["osloc-dat-viz-viewer"],
+        settings: {
+            "osloc-dat-viz-viewer": {
+                autoShowAll: false,
+                autoFocus: true,
+                simplifiedViewer: true,
+                startupDatasetId: "previous-export",
+            },
+        },
+    },
+};
+assert(savedProject.plugins.activePluginIds.includes(plugin.id));
+plugin.applyProjectState(app, savedProject.plugins.settings[plugin.id]);
 plugin.activate(app);
+assert.equal(registeredPanel.id, "osloc-dat-viz-panel");
+assert.equal(registeredPanel.title, "OSLDV");
+assert.equal(registeredMenu.id, "osloc-dat-viz-menu");
+assert.equal(registeredMenu.label, "OSLDV");
 assert(toolbarClasses.has(simplifiedClass));
 assert.equal(panelOpenCalls, 1);
 
@@ -234,7 +277,8 @@ assert.equal(observerDisconnects, 2);
 
 const styleSource = fs.readFileSync(stylePath, "utf8");
 assert(styleSource.includes(`header.${simplifiedClass} button`));
-assert(styleSource.includes(`button[aria-label="OS-LOC-DAT-VIZ"]`));
+assert(styleSource.includes(`button[aria-label="OSLDV"]`));
+assert(pluginSource.includes('"OSLDV source and license", "https://github.com/btc-git/OSLDV"'));
 assert(pluginSource.includes('input.type = "datetime-local"'));
 assert(pluginSource.includes('input.step = "60"'));
 assert(pluginSource.includes('makeButton("Load GeoJSON"'));

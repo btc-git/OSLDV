@@ -1,10 +1,10 @@
-# OS-LOC-DAT-VIZ Viewer Plugin
+# OSLDV Viewer Plugin
 
 This directory contains the installable GeoLibre viewer plugin used with
-OS-LOC-DAT-VIZ KML and GeoJSON exports.
+OSLDV KML and GeoJSON exports.
 
 The viewer provides a prominent **Load GeoJSON** action for previous
-OS-LOC-DAT-VIZ exports and supports inclusive local date/time filtering to the
+OSLDV exports and supports inclusive local date/time filtering to the
 minute, timeline playback, map labels, event details, and focused navigation.
 Additional GeoJSON exports can be loaded by repeating the action. KML remains
 available through GeoLibre drag and drop. Static reference-cell-site record sets
@@ -29,3 +29,9 @@ the bundled GeoLibre 3.0.0 viewer under its MIT License.
   release.
 
 The plugin is covered by the repository's GNU GPL v3.0 license.
+
+The display name is OSLDV, but the plugin ID remains `osloc-dat-viz-viewer`.
+Existing projects continue to use that ID in `plugins.activePluginIds` and
+`plugins.settings`, including the `simplifiedViewer` setting. Exported
+`osloc_*` metadata and legacy `osloc_export_id`/`osloc_export_name` fields
+remain supported; renaming the product does not migrate saved data or IDs.

@@ -1,5 +1,5 @@
 /*
- * Open Source Location Data Visualizer - github.com/btc-git/OS-LOC-DAT-VIZ
+ * Open Source Location Data Visualizer - github.com/btc-git/OSLDV
  * Licensed under the GNU General Public License v3.0 - see LICENSE for details
  */
 
@@ -153,7 +153,7 @@ function updateSimplifiedChrome() {
   }
 
   const menuButton = [...document.querySelectorAll("header button")].find(
-    button => button.getAttribute("aria-label") === "OS-LOC-DAT-VIZ"
+    button => button.getAttribute("aria-label") === "OSLDV"
   );
   const nextToolbar = menuButton?.closest("header") ?? null;
   if (nextToolbar === simplifiedToolbar) return;
@@ -251,7 +251,7 @@ function datasetMeta(p) {
   const id = firstProp(p, "osloc_dataset_id", "osloc_export_id") || "legacy";
   const name =
     firstProp(p, "osloc_dataset_name", "osloc_export_name") ||
-    (id === "legacy" ? "Legacy OS-LOC-DAT-VIZ data" : id);
+    (id === "legacy" ? "Legacy OSLDV data" : id);
   const schema = firstProp(p, "osloc_schema_version") || "legacy";
   return { id, name, schema };
 }
@@ -272,7 +272,7 @@ export function parseOslocGeoJson(text) {
   }
 
   if (data?.type !== "FeatureCollection" || !Array.isArray(data.features)) {
-    throw new Error("Select a GeoJSON FeatureCollection exported by OS-LOC-DAT-VIZ.");
+    throw new Error("Select a GeoJSON FeatureCollection exported by OSLDV.");
   }
 
   const oslocFeature = data.features.find(feature =>
@@ -283,13 +283,13 @@ export function parseOslocGeoJson(text) {
     firstProp(oslocFeature?.properties ?? {}, "osloc_dataset_id", "osloc_export_id");
 
   if (!oslocFeature || !datasetId) {
-    throw new Error("This GeoJSON does not contain OS-LOC-DAT-VIZ event metadata.");
+    throw new Error("This GeoJSON does not contain OSLDV event metadata.");
   }
 
   const name =
     firstProp(data, "osloc_dataset_name", "name") ||
     firstProp(oslocFeature.properties, "osloc_dataset_name", "osloc_export_name") ||
-    "OS-LOC-DAT-VIZ data";
+    "OSLDV data";
 
   return { data, datasetId, name };
 }
@@ -1548,12 +1548,12 @@ function formatZonedDateTime12(ms, timeZone) {
 function formatCorrectedDisplayTime(event) {
   if (!isTemporalEvent(event)) return "";
 
-  // IANA timezone: format the canonical UTC instant in the intended OS-LOC zone.
+  // IANA timezone: format the canonical UTC instant in the intended OSLDV zone.
   if (isUsableIanaZone(event.timezone)) {
     return formatZonedDateTime12(event.startMs, event.timezone);
   }
 
-  // Fixed-offset / literal local value: retain the wall-clock fields OS-LOC wrote.
+  // Fixed-offset / literal local value: retain the wall-clock fields OSLDV wrote.
   if (event.localStart) return formatLiteralDateTime12(event.localStart);
 
   // Final fallback only.
@@ -1561,7 +1561,7 @@ function formatCorrectedDisplayTime(event) {
 }
 
 function formatRecordTime(event) {
-  // Preserve the source/record-time text exactly as OS-LOC-DAT-VIZ wrote it.
+  // Preserve the source/record-time text exactly as OSLDV wrote it.
   // Do not reinterpret it or force AM/PM formatting in the viewer.
   return event.displayTime ? String(event.displayTime) : "";
 }
@@ -3169,7 +3169,7 @@ export async function loadOslocGeoJson(app = state.app) {
   }
 
   const text = await app.importTextFile({
-    description: "OS-LOC-DAT-VIZ GeoJSON",
+    description: "OSLDV GeoJSON",
     extensions: ["geojson"],
     mimeType: "application/geo+json",
   });
@@ -3222,7 +3222,7 @@ function makeLoadGeoJsonControl() {
   button.dataset.role = "load-geojson";
   button.disabled = !canLoad;
   button.title = canLoad
-    ? "Load an OS-LOC-DAT-VIZ .geojson file"
+    ? "Load an OSLDV .geojson file"
     : "GeoJSON file loading is unavailable in this GeoLibre build";
 
   control.append(description, button, status);
@@ -3318,7 +3318,7 @@ function makeAboutSection() {
 
   const pluginNotice = document.createElement("p");
   pluginNotice.textContent =
-    `OS-LOC-DAT-VIZ Viewer ${PLUGIN_VERSION} - GNU General Public License v3.0.`;
+    `OSLDV Viewer ${PLUGIN_VERSION} - GNU General Public License v3.0.`;
 
   const geolibreNotice = document.createElement("p");
   geolibreNotice.textContent =
@@ -3339,7 +3339,7 @@ function makeAboutSection() {
     });
     links.appendChild(link);
   };
-  addLink("OS-LOC-DAT-VIZ source and license", "https://github.com/btc-git/OS-LOC-DAT-VIZ");
+  addLink("OSLDV source and license", "https://github.com/btc-git/OSLDV");
   addLink("GeoLibre source and MIT license", "https://github.com/opengeos/GeoLibre");
 
   const bundledNotice = document.createElement("p");
@@ -3795,7 +3795,7 @@ function renderPanelSafe() {
     state.container.innerHTML = "";
     const box = document.createElement("div");
     box.className = "osloc-v028 osloc-v028__error";
-    box.textContent = `OS-LOC-DAT-VIZ Viewer error: ${err?.message ?? String(err)}`;
+    box.textContent = `OSLDV Viewer error: ${err?.message ?? String(err)}`;
     state.container.appendChild(box);
   }
 }
@@ -4117,7 +4117,7 @@ function renderPanel() {
     const empty = document.createElement("div");
     empty.className = "osloc-v028__empty";
     empty.innerHTML =
-      "<strong>Waiting for OS-LOC-DAT-VIZ data…</strong><br>" +
+      "<strong>Waiting for OSLDV data…</strong><br>" +
       "Use Load GeoJSON above for a previous export, or drag KML files into GeoLibre.";
 
     root.appendChild(empty);
@@ -4350,7 +4350,7 @@ function startLayerMonitor() {
 
 export const plugin = {
   id: PLUGIN_ID,
-  name: "OS-LOC-DAT-VIZ Viewer",
+  name: "OSLDV Viewer",
   version: PLUGIN_VERSION,
   restoresPanelCollapseState: true,
 
@@ -4377,7 +4377,7 @@ export const plugin = {
 
     unregisterPanel = app.registerRightPanel?.({
       id: PANEL_ID,
-      title: "OS-LOC-DAT-VIZ",
+      title: "OSLDV",
       dock: "replace-layers",
       defaultWidth: 440,
 
@@ -4406,7 +4406,7 @@ export const plugin = {
 
     unregisterMenu = app.registerToolbarMenu?.({
       id: "osloc-dat-viz-menu",
-      label: "OS-LOC-DAT-VIZ",
+      label: "OSLDV",
       items: [
         {
           id: "open",

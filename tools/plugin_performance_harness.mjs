@@ -1,5 +1,5 @@
 /*
- * Open Source Location Data Visualizer - github.com/btc-git/OS-LOC-DAT-VIZ
+ * Open Source Location Data Visualizer - github.com/btc-git/OSLDV
  * Licensed under the GNU General Public License v3.0 - see LICENSE for details
  */
 
