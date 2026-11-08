@@ -10,15 +10,10 @@ OSLDV is a preliminary location-data triage and visualization aid.
 
 ## Download
 
-<a href="https://github.com/btc-git/OSLDV/releases/latest" style="text-decoration:none;font-weight:bold;font-size:1.1em;">
-⬇️ Download the latest stable release
-</a>
-<br>
-
-Download the standalone executable from the [latest stable release](https://github.com/btc-git/OSLDV/releases/latest) - no Python installation required.
-New builds are named `OSLDV.exe`; older releases may use the previous filename.
-
-The executable is not code-signed. See [checksum verification](docs/BUILDING.md#building-the-executable) before running a downloaded build.
+1. **[Download OSLDV.exe](https://github.com/btc-git/OSLDV/releases/latest/download/OSLDV.exe)**
+   (latest version for Windows; no installation needed).
+2. Double-click it to run. Windows may show "Windows protected your PC" because
+   the app is not code-signed: click **More info** → **Run anyway**.
 
 ## Privacy & Security
 
@@ -34,12 +29,13 @@ Location-data processing and export run locally; the application does not upload
 
 ## How to Use
 
-1. Drag and drop a CSV or Excel file into the program, or use the Browse for File button.
-2. CSV and XLSX files using the application's standard template column names are recognized automatically. Files in the older XLS format open the mapping wizard.
-3. For other files, the **Import Original Records** mapping wizard opens automatically. Select the worksheet and the row containing the column names, choose the record type, and check that each source column is matched to the correct field. You can optionally limit the import to a date/time range.
-4. Review the timezone, date order (month or day first), units, and visualization settings. Optionally add or import markers for the current source records on the **Markers** tab.
-5. Click **Process** to create the KML, GeoJSON, and TXT generation log, or **Process and Open in Viewer** to create them and immediately open the GeoJSON in the included viewer. Use **Open Viewer**, then **Load GeoJSON**, to review existing GeoJSON files without generating new outputs. GeoJSON is recommended for GeoLibre; KML can be opened in Google Earth Pro.
-6. Review warnings and row outcomes in the TXT log. All visualizations remain preliminary and require independent expert review.
+1. Download and run `OSLDV.exe` (see [Download](#download)).
+2. Drag and drop a CSV or Excel file into the program, or use the Browse for File button.
+3. CSV and XLSX files using the application's standard template column names are recognized automatically. Files in the older XLS format open the mapping wizard.
+4. For other files, the **Import Original Records** mapping wizard opens automatically. Select the worksheet and the row containing the column names, choose the record type, and check that each source column is matched to the correct field. You can optionally limit the import to a date/time range.
+5. Review the timezone, date order (month or day first), units, and visualization settings. Optionally add or import markers for the current source records on the **Markers** tab.
+6. Click **Process** to create the KML, GeoJSON, and TXT generation log, or **Process and Open in Viewer** to create them and immediately open the GeoJSON in the included viewer. Use **Open Viewer**, then **Load GeoJSON**, to review existing GeoJSON files without generating new outputs. GeoJSON is recommended for GeoLibre; KML can be opened in Google Earth Pro.
+7. Review warnings and row outcomes in the TXT log. All visualizations remain preliminary and require independent expert review.
 
 See the [technical reference](docs/TECHNICAL.md) for full import, mapping, date/time, cell-site-list, marker, and template details.
 

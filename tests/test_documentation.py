@@ -28,7 +28,7 @@ class DocumentationTests(unittest.TestCase):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         how_to_use = readme.split("## How to Use\n", 1)[1].split("\n## ", 1)[0]
         self.assertEqual(
-            ["1", "2", "3", "4", "5", "6"],
+            ["1", "2", "3", "4", "5", "6", "7"],
             re.findall(r"^(\d+)\. ", how_to_use, re.MULTILINE),
         )
         for action in (
@@ -38,8 +38,16 @@ class DocumentationTests(unittest.TestCase):
         ):
             with self.subTest(action=action):
                 self.assertIn(action, how_to_use)
+        self.assertIn(
+            "Download and run `OSLDV.exe` (see [Download](#download)).",
+            how_to_use,
+        )
         self.assertIn("(docs/TECHNICAL.md)", how_to_use)
-        self.assertIn("Download the latest stable release", readme)
+        self.assertIn(
+            "[Download OSLDV.exe]"
+            "(https://github.com/btc-git/OSLDV/releases/latest/download/OSLDV.exe)",
+            readme,
+        )
         self.assertIn(
             "In active development and testing. Not a validated forensic tool; "
             "verify all findings independently.",
