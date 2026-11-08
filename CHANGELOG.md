@@ -7,12 +7,14 @@
 ### Changed
 - Updated visible branding and repository links to OSLDV while retaining existing plugin, settings, project, export-metadata, and Windows taskbar identities for compatibility.
 - Renamed the Windows executable to `OSLDV.exe` and changed the download link to the latest release page rather than a filename-specific asset URL.
+- Newly generated GeoLibre projects now use `OSLDV` for project and layer `generatedBy` provenance. Existing project files are not rewritten; plugin IDs, settings keys, and export schemas are unchanged.
 
 ### Fixed
 - Window, taskbar, executable, and shortcut icons now share a multi-resolution WiFi asset rendered from vector artwork, with tighter framing and native sizes from 16px to 256px instead of upscaling tiny images.
 
 ### Documentation
 - Clarified that GeoLibre's standalone update installer does not update the pinned bundled viewer, with supported startup-check settings and shared-settings/security caveats.
+- Shortened the README around the basic import workflow and moved the complete technical, export/audit, and build references into `docs/`, retaining the existing content and pre-release guidance.
 
 ## [2.0.0-beta.4] - 2026-10-04
 

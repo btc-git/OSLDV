@@ -80,7 +80,7 @@ class GeoLibreProjectTests(unittest.TestCase):
                 set(plugin_settings),
             )
             self.assertEqual(
-                "OS-LocationDataVisualizer", project["metadata"]["generatedBy"]
+                "OSLDV", project["metadata"]["generatedBy"]
             )
 
     def test_project_references_generated_geojson_and_activates_viewer(self):
@@ -114,12 +114,13 @@ class GeoLibreProjectTests(unittest.TestCase):
 
             self.assertEqual("0.1.0", project["version"])
             self.assertEqual("Review Records", project["name"])
+            self.assertEqual("OSLDV", project["metadata"]["generatedBy"])
             self.assertEqual([-77.6, 43.2], project["mapView"]["center"])
             self.assertEqual([-77.7, 43.1, -77.5, 43.3], project["mapView"]["bbox"])
             self.assertEqual(str(geojson_path.resolve()), layer["sourcePath"])
             self.assertTrue(layer["metadata"]["localFileReloadable"])
             self.assertEqual(
-                "OS-LocationDataVisualizer", layer["metadata"]["generatedBy"]
+                "OSLDV", layer["metadata"]["generatedBy"]
             )
             self.assertNotIn("geojson", layer)
             self.assertEqual([VIEWER_PLUGIN_ID], project["plugins"]["activePluginIds"])

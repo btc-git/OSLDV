@@ -272,7 +272,7 @@ def _viewer_project_payload(name, map_view, layers, startup_dataset_id=None):
             },
         },
         "metadata": {
-            "generatedBy": "OS-LocationDataVisualizer",
+            "generatedBy": "OSLDV",
             "preliminary": True,
         },
     }
@@ -332,7 +332,7 @@ def build_geolibre_project_text(geojson_path, geojson_payload, display_name=None
                 "visible": True,
                 "opacity": 1,
                 "metadata": {
-                    "generatedBy": "OS-LocationDataVisualizer",
+                    "generatedBy": "OSLDV",
                     "preliminary": True,
                     "localFileReloadable": True,
                 },

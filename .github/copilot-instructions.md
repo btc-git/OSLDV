@@ -7,7 +7,10 @@ paired KML and GeoJSON visualizations plus a TXT generation log. It is a
 preliminary triage tool: all source interpretation and generated geometry
 require independent expert verification.
 
-Use [README.md](../README.md) for user and developer documentation,
+Use [README.md](../README.md) for the overview and basic import steps,
+[docs/TECHNICAL.md](../docs/TECHNICAL.md) for the full user reference,
+[docs/EXPORTING.md](../docs/EXPORTING.md) for output and audit behavior,
+[docs/BUILDING.md](../docs/BUILDING.md) for development and release builds,
 [tests/README.md](../tests/README.md) for automated tests, and
 [tools/README.md](../tools/README.md) for manual diagnostics. Do not duplicate
 those documents here.
