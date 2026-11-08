@@ -14,6 +14,10 @@ startup disclaimer's visibility and dismissal behavior. The
 Node.js contract test covers project-scoped simplified viewer chrome. Tests use
 Qt's offscreen platform and do not require opening the desktop application.
 
+Application-icon regressions verify that the ICO matches its vector source,
+exposes native Windows/Qt sizes, fills the small title-bar icon, supports
+high-DPI taskbar rendering, and reports a missing icon explicitly.
+
 Source/output safety regressions cover real CSV import precision and leading-zero
 IDs, ordinary-coordinate geometry parity, load-bound hashes, CSL joins, marker
 file versions, sibling overwrite cancellation, staged-save failures, replacement

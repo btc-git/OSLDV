@@ -22,8 +22,7 @@ def main():
     window = MainWindow()
     
     # Set the application icon for taskbar
-    icon = window.create_pushpin_icon()
-    app.setWindowIcon(icon)
+    app.setWindowIcon(window.windowIcon())
     
     # For Windows taskbar grouping (helps with custom icon display)
     if os.name == 'nt':  # Windows

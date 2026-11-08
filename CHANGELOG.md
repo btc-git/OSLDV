@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+### Fixed
+- Window, taskbar, executable, and shortcut icons now share a multi-resolution WiFi asset rendered from vector artwork, with tighter framing and native sizes from 16px to 256px instead of upscaling tiny images.
+
+### Documentation
+- Clarified that GeoLibre's standalone update installer does not update the pinned bundled viewer, with supported startup-check settings and shared-settings/security caveats.
+
 ## [2.0.0-beta.4] - 2026-10-04
 
 ### Fixed

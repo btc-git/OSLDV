@@ -105,6 +105,7 @@ a = Analysis(
     datas=[
         ('LICENSE', '.'),
         ('THIRD_PARTY_NOTICES.md', '.'),
+        ('wifi_icon.ico', '.'),
     ] + collect_data_files('tzdata') + xlrd_datas + viewer_datas + dependency_license_datas,
     hiddenimports=xlrd_hiddenimports,
     hookspath=[],

@@ -2,6 +2,23 @@
 
 These scripts are manual diagnostics, not part of unittest discovery.
 
+## Application icon
+
+The editable logo source is `wifi_icon.svg`. Generate the tracked
+`wifi_icon.ico` used by both Qt and the Windows executable after changing it:
+
+```powershell
+python tools/generate_app_icon.py
+python tools/generate_app_icon.py --check
+```
+
+This uses the existing PyQt6 dependency to render native 16, 20, 24, 32, 40, 48,
+64, 96, 128, and 256px images with transparent backgrounds. Rebuild through
+`app.spec` to update executable and shortcut icons. Existing Windows shortcuts
+may retain cached icons; recreate the shortcut if it still displays the old one.
+
+## Manual diagnostics
+
 Generate a matrix of KML variants from a local KML file:
 
 ```powershell

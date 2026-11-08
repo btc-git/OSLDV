@@ -22,10 +22,12 @@ from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
                              QLineEdit, QFrame, QScrollArea, QTableWidget,
                              QTableWidgetItem, QHeaderView, QStyle)
 from PyQt6.QtCore import Qt, QSettings, QTimer, pyqtSignal
-from PyQt6.QtGui import QFont, QColor, QIcon, QPixmap, QPainter, QPen, QShowEvent
+from PyQt6.QtGui import QFont, QColor, QIcon, QShowEvent
 
 from dialogs import DisclaimerDialog
-from geolibre_launcher import GeoLibreLaunchWorker, build_geolibre_project_text
+from geolibre_launcher import (
+    GeoLibreLaunchWorker, build_geolibre_project_text, bundled_resource_path,
+)
 from output_io import write_output_set
 from source_io import read_csv_text, read_hashed_source
 from import_wizard import (
@@ -2438,41 +2440,9 @@ class MainWindow(QMainWindow):
             self.add_status_message("⚠️ Template download cancelled")
     
     def create_pushpin_icon(self):
-        """Create a traditional WiFi icon for the application"""
-        # Create a 32x32 pixel icon
-        pixmap = QPixmap(32, 32)
-        pixmap.fill(Qt.GlobalColor.transparent)
-        
-        painter = QPainter(pixmap)
-        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        
-        # Set up the center point and base styling
-        center_x, center_y = 16, 20
-        
-        # Draw the base point (device/router)
-        painter.setPen(QPen(Qt.GlobalColor.black, 1))
-        painter.setBrush(Qt.GlobalColor.darkBlue)
-        painter.drawEllipse(center_x - 2, center_y - 1, 4, 3)
-        
-        # Draw WiFi signal arcs (3 concentric arcs)
-        painter.setBrush(Qt.GlobalColor.transparent)
-        
-        # Arc settings: radius, line width, color
-        arcs = [
-            (6, 2, Qt.GlobalColor.darkGreen),    # Inner arc
-            (10, 2, Qt.GlobalColor.green),       # Middle arc
-            (14, 2, Qt.GlobalColor.darkGray)     # Outer arc
-        ]
-        
-        for radius, width, color in arcs:
-            painter.setPen(QPen(color, width))
-            # Draw arc from -60 to +60 degrees (120 degree span)
-            painter.drawArc(
-                center_x - radius, center_y - radius,
-                radius * 2, radius * 2,
-                30 * 16, 120 * 16  # Qt uses 16ths of degrees
-            )
-        
-        painter.end()
-        
-        return QIcon(pixmap)
+        """Load the same multi-resolution WiFi icon used by the executable."""
+        icon_path = bundled_resource_path("wifi_icon.ico")
+        icon = QIcon(str(icon_path))
+        if icon.isNull():
+            raise RuntimeError(f"Application icon is missing or invalid: {icon_path}")
+        return icon
