@@ -442,6 +442,18 @@ class ImportAndSaveUITests(unittest.TestCase):
                  for suffix in ('.kml', '.geojson', '.txt')],
             )
 
+    def test_executable_name_and_release_link_match_packaging(self):
+        root = Path(__file__).resolve().parents[1]
+        spec = (root / 'app.spec').read_text(encoding='utf-8')
+        windows_metadata = (root / 'version_info.txt').read_text(encoding='utf-8')
+        readme = (root / 'README.md').read_text(encoding='utf-8')
+        self.assertIn("name='OSLDV'", spec)
+        self.assertIn("StringStruct('InternalName', 'OSLDV')", windows_metadata)
+        self.assertIn("StringStruct('OriginalFilename', 'OSLDV.exe')", windows_metadata)
+        self.assertIn('href="https://github.com/btc-git/OSLDV/releases/latest"', readme)
+        self.assertNotIn('/releases/latest/download/', readme)
+        self.assertIn('`OSLDV.exe`', readme)
+
     def test_beta_version_declarations_match(self):
         from version import APP_VERSION
         root = Path(__file__).resolve().parents[1]

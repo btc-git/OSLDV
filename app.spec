@@ -122,7 +122,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='OS-LocationDataVisualizer',
+    name='OSLDV',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

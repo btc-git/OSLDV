@@ -9,8 +9,8 @@ A standalone desktop application for **quick triage and initial visualization** 
 
 ⚠️ **IMPORTANT: This is for initial review only. All findings must be analyzed and verified.**
 
-<a href="https://github.com/btc-git/OSLDV/releases/latest/download/OS-LocationDataVisualizer.exe" style="text-decoration:none;font-weight:bold;font-size:1.1em;">
-⬇️ Download the latest stable OS-LocationDataVisualizer.exe
+<a href="https://github.com/btc-git/OSLDV/releases/latest" style="text-decoration:none;font-weight:bold;font-size:1.1em;">
+⬇️ Download the latest stable release
 </a>
 <br>
 
@@ -174,7 +174,8 @@ This is an open source project. Found a bug or have a suggestion? [Open an issue
 
 ### For End Users
 
-Download the standalone executable `OS-LocationDataVisualizer.exe` - no Python installation required.
+Download the standalone executable from the [latest stable release](https://github.com/btc-git/OSLDV/releases/latest) - no Python installation required.
+New builds are named `OSLDV.exe`; older releases may use the previous filename.
 
 ### For Developers
 
@@ -229,7 +230,7 @@ Before each release:
    ```bash
    python -m PyInstaller --clean app.spec
    ```
-4. Find the executable in the `dist/` directory (the file will be named `OS-LocationDataVisualizer.exe`)
+4. Find the executable in the `dist/` directory (the file will be named `OSLDV.exe`)
 
 Always build through `app.spec`; it packages the icon, version metadata,
 timezone and XLS support, bundled GeoLibre viewer and plugin, and license files.

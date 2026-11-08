@@ -22,6 +22,8 @@ Branding regressions check OSLDV labels and repository links while preserving
 application/settings identities, viewer project keys and provenance, and
 plugin/panel/menu IDs. Node tests also load legacy export metadata and saved
 project settings with the renamed toolbar.
+Packaging checks keep the executable name, Windows filename metadata, and
+stable release-page link aligned.
 
 Source/output safety regressions cover real CSV import precision and leading-zero
 IDs, ordinary-coordinate geometry parity, load-bound hashes, CSL joins, marker

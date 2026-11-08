@@ -5,7 +5,8 @@
 ## [Unreleased]
 
 ### Changed
-- Updated visible branding and repository links to OSLDV while retaining existing plugin, settings, project, export-metadata, and executable identifiers for compatibility.
+- Updated visible branding and repository links to OSLDV while retaining existing plugin, settings, project, export-metadata, and Windows taskbar identities for compatibility.
+- Renamed the Windows executable to `OSLDV.exe` and changed the download link to the latest release page rather than a filename-specific asset URL.
 
 ### Fixed
 - Window, taskbar, executable, and shortcut icons now share a multi-resolution WiFi asset rendered from vector artwork, with tighter framing and native sizes from 16px to 256px instead of upscaling tiny images.
