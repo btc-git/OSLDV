@@ -408,7 +408,7 @@ class GenerationActionTests(unittest.TestCase):
         self.addCleanup(dialog.close)
         self.assertTrue(any(
             "OSLDV is licensed" in label.text()
-            and 'href="https://github.com/btc-git/OSLDV"' in label.text()
+            and 'href="https://github.com/btc-git/OSLDV#readme"' in label.text()
             for label in dialog.findChildren(QLabel)
         ))
 
@@ -551,57 +551,36 @@ class GenerationActionTests(unittest.TestCase):
             select_color.call_args_list,
         )
 
-    def test_disclaimer_describes_current_workflows_and_troubleshooting(self):
+    def test_disclaimer_is_short_and_links_full_documentation(self):
         dialog = DisclaimerDialog()
         self.addCleanup(dialog.close)
         text = "\n".join(label.text() for label in dialog.findChildren(QLabel))
         for phrase in (
-            "Preliminary Visualization Only",
-            "KML and GeoJSON visualizations",
-            "Process and Open in Viewer",
-            "Open Viewer",
-            "Load GeoJSON",
-            ".geolibre",
-            "Check Matching Rows",
-            "Use exact times",
-            "separate cell site list",
-            "Reference Cell Sites",
-            "initially 0",
-            "A zero default means no accuracy radius is assumed",
-            "A source accuracy value of zero also means unknown accuracy",
-            "Azimuth is measured in degrees",
-            "Invalid accuracy produces a point",
-            "Other date and time options:",
-            "Excel stores as numbers",
-            "such as -05:00",
-            "a Date column and a Time column",
-            "March 4 or April 3",
-            "14:30:00.123 is treated as 14:30:00",
-            "A time without a date uses today's date",
-            "Missing or unreadable dates and times:",
-            "For all record types",
-            "date/time unavailable",
-            "cannot confirm that they fall within your selected range",
-            "GeoJSON output in the included GeoLibre viewer",
-            "No RF Coverage Estimates",
-            "additional points of interest",
-            "map area being requested",
-            "Invalid accuracy produces a point without an accuracy circle, even when a positive default is configured",
-            "performance still depends",
-            "Show All",
-            "From/Through",
-            "Focus Set",
-            "one running instance per Windows session",
-            "map services",
-            "OpenFreeMap",
-            "IP address and the map area being requested",
+            "Preliminary visualization only",
+            "No RF coverage estimates",
+            "active development and testing",
+            "Verify all source values",
+            "Work from copies of original records",
+            "does not replace professional forensic analysis",
+            "developed with AI assistance",
+            "program itself does not use AI",
+            "Version 2.0.1",
+            'href="https://github.com/btc-git/OSLDV#readme"',
+            'href="https://github.com/btc-git/OSLDV/tree/master/docs"',
         ):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, text)
-        self.assertNotIn("milliseconds auto-handled", text)
-        self.assertNotIn("additonal", text)
-        self.assertNotIn("RF coverages", text)
-        self.assertNotIn("18+ timestamp formats", text)
+        for removed_detail in (
+            "Usage Overview",
+            "Visualization Details",
+            "Technical Guidance",
+            "Supported Date and Time Formats",
+            "Troubleshooting",
+            "Process and Open in Viewer",
+            "Check Matching Rows",
+        ):
+            with self.subTest(removed_detail=removed_detail):
+                self.assertNotIn(removed_detail, text)
 
     def test_main_timezone_defaults_match_import_wizard(self):
         with patch.object(MainWindow, "show_disclaimer_dialog"):

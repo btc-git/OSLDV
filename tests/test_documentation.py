@@ -40,10 +40,24 @@ class DocumentationTests(unittest.TestCase):
                 self.assertIn(action, how_to_use)
         self.assertIn("(docs/TECHNICAL.md)", how_to_use)
         self.assertIn("Download the latest stable release", readme)
-        self.assertIn("continuous development and may contain errors", readme)
-        self.assertIn("All findings must be analyzed and verified", readme)
-        self.assertIn("All outputs require verification", readme)
-        self.assertIn("NO RF COVERAGE ESTIMATES", readme)
+        self.assertIn(
+            "In active development and testing. Not a validated forensic tool; "
+            "verify all findings independently.",
+            readme,
+        )
+        self.assertIn(
+            "OSLDV is a preliminary location-data triage and visualization aid.",
+            readme,
+        )
+        for disclaimer in (
+            "continuous development and may contain errors",
+            "visual aids only and are not RF coverage estimates",
+            "Verify all findings independently",
+            "Work from copies of original records",
+            "not a replacement for professional forensic analysis",
+        ):
+            with self.subTest(disclaimer=disclaimer):
+                self.assertIn(disclaimer, readme)
         self.assertNotRegex(
             readme, r"(?i)\b(?:beta|pre-release|prerelease|development preview)\b"
         )
@@ -66,6 +80,20 @@ class DocumentationTests(unittest.TestCase):
                 self.assertIn(command, guide)
         self.assertIn("Always build through `app.spec`", guide)
         self.assertIn("`OSLDV.exe`", guide)
+
+    def test_technical_reference_retains_removed_dialog_guidance(self):
+        technical = (ROOT / "docs" / "TECHNICAL.md").read_text(encoding="utf-8")
+        for detail in (
+            "wedge is 120 degrees wide and extends 1 mile",
+            "does not establish that a device",
+            "Azimuth is measured in degrees",
+            "including both endpoints",
+            "OSLDV does not upload source",
+            "user's IP address",
+            "viewed map area",
+        ):
+            with self.subTest(detail=detail):
+                self.assertIn(detail, technical)
 
     def test_local_documentation_links_and_anchors_resolve(self):
         documents = [

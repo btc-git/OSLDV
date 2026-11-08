@@ -5,9 +5,8 @@ This application was developed with AI assistance and has undergone human review
 
 ---
 
-A standalone desktop application for **quick triage and initial visualization** of location data. This tool converts data containing cell site/sector, distance from cell site, and location point information into paired KML and GeoJSON files for preliminary analysis.
-
-⚠️ **IMPORTANT: This is for initial review only. All findings must be analyzed and verified.**
+⚠️ **In active development and testing. Not a validated forensic tool; verify all findings independently.**
+OSLDV is a preliminary location-data triage and visualization aid.
 
 ## Download
 
@@ -27,13 +26,11 @@ Location-data processing and export run locally; the application does not upload
 
 ## Important Disclaimers
 
-At startup, the main program window appears behind the **Important Disclaimers & Usage Information** dialog. Click **Close** or the dialog's window close button to dismiss the information and use the program. The dialog appears on every startup and can be reopened with the information button.
-
 - **This tool is in continuous development and may contain errors.**
-- **This tool is designed for quick preliminary review and visualization. All outputs require verification.**
-- **NO RF COVERAGE ESTIMATES**: All shaded areas, wedges, and circles are visual representations only; they do not show radio signal coverage. The app does not calculate device locations or RF coverage
-- Distance from cell site measurements, sector areas, and location accuracy should all be independently validated
-- This tool does not replace professional forensic analysis or expert work
+- Visualizations are visual aids only and are not RF coverage estimates.
+- Verify all findings independently.
+- Work from copies of original records and preserve the originals.
+- This tool is not a replacement for professional forensic analysis or expert review.
 
 ## How to Use
 
@@ -89,5 +86,5 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 ---
 Copyright (c) 2025-2026 CrimLawTech LLC
-**Version 2.0.0**
+**Version 2.0.1**
 _Open Source Location Data Visualization Tool_

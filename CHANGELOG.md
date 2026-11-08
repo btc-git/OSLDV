@@ -4,8 +4,11 @@
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-11-08
+
 ### Changed
 - Updated the pinned bundled GeoLibre Desktop portable viewer from 3.0.0 to 3.7.0 after retaining OSLDV-managed version selection and integrity verification.
+- Shortened in-app disclaimers; usage details moved to docs.
 
 ## [2.0.0] - 2026-11-07
 

@@ -42,6 +42,13 @@
 - Named timezone and fixed UTC-offset handling
 - Human-readable TXT generation log with hashes, settings, row outcomes, and warnings
 
+GeoLibre provides record-set and individual-event controls, **From/Through**
+date/time filtering including both endpoints, timeline playback, labels, and
+event details. Records open hidden by default; enable individual events or use
+**Show All**. Use **Focus Set** or **Zoom to Event** to jump to the event area.
+Reference cell sites and markers remain static during timeline playback and
+date filtering.
+
 ## Importing Original Records
 
 For original carrier records that do not match a template, the import wizard opens automatically. It supports CSV, XLS, and XLSX files. Select the worksheet, the row containing the column names, and the record type, then match the source columns to the application fields. Its live preview shows the first 25 source rows with each original column name and the application field currently matched to it. Azimuth may be left unmapped when it is unavailable; the application will use a 360-degree visualization. Imported records are prepared in memory and the original file is not modified.
@@ -70,6 +77,22 @@ for more information. Hover over those labels to see their tooltips.
 site list: it selects nearby static reference dots, not coverage or event
 geometry. Without a CSL, the radius has no effect.
 
+## Visualization Interpretation and Limits
+
+- With a cell site location and azimuth, OSLDV draws a wedge centered on that
+  direction. Without azimuth, it draws a 360-degree circle. The initial shaded
+  wedge is 120 degrees wide and extends 1 mile, but both are configurable
+  visual assumptions and never RF coverage estimates.
+- For Distance from Cell Site records, the reported distance appears as a line
+  or shaded band using the configured inner and outer band settings. Missing
+  distance omits the band. The visualization does not establish that a device
+  was within the displayed area or at an exact distance from the cell site.
+- For Location Point records, a positive accuracy value draws an accuracy
+  circle. Missing accuracy uses the configured default radius, initially 0.
+  Zero or invalid accuracy leaves the point visible without a circle and means
+  unknown accuracy, not an exact location. A positive default is a
+  visualization assumption, not measured accuracy.
+
 ## Data Format Reference
 
 These are the standard template columns, not a list of required values.
@@ -93,6 +116,12 @@ rather than the usable location.
 - `Label`, `Latitude`, `Longitude`, `Color`
 
 The templates use one combined `Timestamp` column, which is recommended. Input files may instead use separate `Date` and `Time` columns, including common variants such as `Conn. Date` and `Conn. Time (UTC)`. Common combined fields such as `Start DateTime`, `StartTime`, `Record Open Date/Time`, and `Msg Send Date` are also recognized.
+
+Verify mapped coordinates, record type, suggested columns, and the selected
+distance and accuracy units rather than assuming automatic detection is
+correct. Distances and accuracy values may use meters, feet, miles, or
+kilometers. Azimuth is measured in degrees (`0=N`, `90=E`, `180=S`, `270=W`);
+coordinates use decimal degrees.
 
 ## Supported Date and Time Formats
 
@@ -138,4 +167,14 @@ The application includes built-in templates for each source data type plus marke
 - **Viewer will not start:** Close other GeoLibre windows before starting the included viewer; only one instance can run per Windows session. Review the status console or error dialog for remaining launch problems.
 - **Missing records or unexpected times:** Review source/display timezones, date order, timestamp mappings, coordinates, cell-site-list matches, and import filters. Check summarized warnings and TXT-log row outcomes. All record types retain usable locations without a date/time when timestamps are missing, unreadable, or uncertain, including daylight-saving conflicts. Active import date/time filters exclude these records because their times cannot be confirmed as matching the range.
 
-Processing and export are local. External viewers, map services, and opened links have their own network and privacy behavior; do not assume they are offline.
+## Privacy and Security
+
+- Location-data processing and export are local; OSLDV does not upload source
+  or output files. External viewers, map services, and opened links have their
+  own network and privacy behavior.
+- Generated KML, GeoJSON, TXT logs, and `.geolibre` projects can contain
+  sensitive location information or file paths. Protect them like the source
+  records and review them before sharing or loading them into other services.
+- The included viewer's OpenFreeMap basemap requires a network connection.
+  Tile requests disclose ordinary request data, including the user's IP address
+  and viewed map area, to that service.
