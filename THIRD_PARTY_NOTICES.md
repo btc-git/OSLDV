@@ -23,7 +23,7 @@ Authoritative package license files control if this summary differs from them.
 | python-dateutil | 2.9.0.post0 | Dual license; see packaged text | <https://github.com/dateutil/dateutil> |
 | six | 1.17.0 | MIT | <https://github.com/benjaminp/six> |
 
-The Windows build also packages the unmodified GeoLibre Desktop 3.0.0 portable
+The Windows build also packages the unmodified GeoLibre Desktop 3.7.0 portable
 archive under the MIT License. Its source and notices are available from
 <https://github.com/opengeos/GeoLibre>; the redistributed MIT text is stored in
 `GeoLibre-Viewer/LICENSE-GeoLibre.txt`.

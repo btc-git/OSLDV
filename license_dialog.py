@@ -21,7 +21,7 @@ class LicenseDialog(QDialog):
 
         notice_label = QLabel(
             "OSLDV is licensed under GNU GPL v3.0. This distribution "
-            "also packages the unmodified GeoLibre Desktop 3.0.0 application "
+            "also packages the unmodified GeoLibre Desktop 3.7.0 application "
             "for viewer functionality; GeoLibre is separately licensed under "
             "the MIT License. The project license, dependency inventory, and "
             "license files included in this build follow."

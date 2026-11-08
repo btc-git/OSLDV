@@ -139,6 +139,27 @@ class GeoLibreProjectTests(unittest.TestCase):
 
 
 class GeoLibreProvisioningTests(unittest.TestCase):
+    def test_tracked_viewer_archive_matches_pinned_release(self):
+        repository_root = Path(__file__).resolve().parents[1]
+        archive_path = (
+            repository_root
+            / "GeoLibre-Viewer"
+            / geolibre_launcher.GEOLIBRE_ARCHIVE_NAME
+        )
+
+        self.assertTrue(archive_path.is_file())
+        self.assertEqual(
+            geolibre_launcher.GEOLIBRE_ARCHIVE_SHA256,
+            geolibre_launcher.calculate_sha256(archive_path),
+        )
+        with zipfile.ZipFile(archive_path) as archive:
+            executable_matches = [
+                entry.filename
+                for entry in archive.infolist()
+                if Path(entry.filename).name.lower() == GEOLIBRE_EXECUTABLE_NAME
+            ]
+        self.assertEqual(1, len(executable_matches))
+
     def _write_plugin(self, resource_root):
         plugin_root = resource_root / "GeoLibre-Plugin"
         (plugin_root / "dist").mkdir(parents=True)
@@ -648,7 +669,7 @@ class GenerationActionTests(unittest.TestCase):
         self.assertIn("PyQt6", license_text)
         self.assertIn("pandas", license_text)
         self.assertIn("BUNDLED THIRD-PARTY SOFTWARE", license_text)
-        self.assertIn("GeoLibre 3.0.0", license_text)
+        self.assertIn("GeoLibre 3.7.0", license_text)
         self.assertIn("Copyright (c) 2026 Qiusheng Wu", license_text)
         self.assertIn("MIT License", license_text)
 

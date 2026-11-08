@@ -1,4 +1,4 @@
-GeoLibre 3.0.0
+GeoLibre 3.7.0
 https://github.com/opengeos/GeoLibre
 
 MIT License

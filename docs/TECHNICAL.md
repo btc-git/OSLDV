@@ -28,7 +28,7 @@
 - KML output for Google Earth Pro and compatible GIS software
 - GeoJSON output optimized for GeoLibre/MapLibre workflows
 - Included [GeoLibre viewer plugin](../GeoLibre-Plugin/README.md) for filtering, timeline playback, labels, and event details
-- Direct **Process**, **Process and Open in Viewer**, and **Open Viewer** actions using the included GeoLibre Desktop 3.0.0 portable viewer
+- Direct **Process**, **Process and Open in Viewer**, and **Open Viewer** actions using the included GeoLibre Desktop 3.7.0 portable viewer
 - Same-named TXT generation log with source/output hashes, settings, row outcomes, and warnings
 
 ### User-Friendly Interface

@@ -19,9 +19,9 @@ from PyQt6.QtCore import QThread, pyqtSignal
 from output_io import write_output_set
 
 
-GEOLIBRE_VERSION = "3.0.0"
-GEOLIBRE_ARCHIVE_NAME = "geolibre-desktop-3.0.0-x64-portable.zip"
-GEOLIBRE_ARCHIVE_SHA256 = "b735fbc284e10f880c736689c29d3eae09c163fbf9bce20a530a11d9125d3519"
+GEOLIBRE_VERSION = "3.7.0"
+GEOLIBRE_ARCHIVE_NAME = "geolibre-desktop-3.7.0-x64-portable.zip"
+GEOLIBRE_ARCHIVE_SHA256 = "797315931e91e6cf31921b0f2aac2eef794f882a7f28746fcedca9e923a2013c"
 GEOLIBRE_EXECUTABLE_NAME = "geolibre-desktop.exe"
 GEOLIBRE_APP_ID = "org.geolibre.desktop"
 VIEWER_PLUGIN_ID = "osloc-dat-viz-viewer"

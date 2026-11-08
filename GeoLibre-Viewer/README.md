@@ -1,13 +1,13 @@
 # Bundled GeoLibre Viewer
 
-The Windows build packages the unmodified GeoLibre Desktop 3.0.0 x64 portable
+The Windows build packages the unmodified GeoLibre Desktop 3.7.0 x64 portable
 archive for the **Process and Open in Viewer** and standalone **Open Viewer**
 workflows.
 
 - Upstream project: <https://github.com/opengeos/GeoLibre>
-- Version: `3.0.0`
-- Archive: `geolibre-desktop-3.0.0-x64-portable.zip`
-- SHA-256: `b735fbc284e10f880c736689c29d3eae09c163fbf9bce20a530a11d9125d3519`
+- Version: `3.7.0`
+- Archive: `geolibre-desktop-3.7.0-x64-portable.zip`
+- SHA-256: `797315931e91e6cf31921b0f2aac2eef794f882a7f28746fcedca9e923a2013c`
 - License: MIT; see `LICENSE-GeoLibre.txt`
 
 The application verifies the archive hash before extracting it into its own

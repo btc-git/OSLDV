@@ -90,7 +90,7 @@ if not xlrd_hiddenimports:
     )
 
 viewer_datas = [
-    ('GeoLibre-Viewer/geolibre-desktop-3.0.0-x64-portable.zip', 'GeoLibre-Viewer'),
+    ('GeoLibre-Viewer/geolibre-desktop-3.7.0-x64-portable.zip', 'GeoLibre-Viewer'),
     ('GeoLibre-Viewer/LICENSE-GeoLibre.txt', 'GeoLibre-Viewer'),
     ('GeoLibre-Plugin/plugin.json', 'GeoLibre-Plugin'),
     ('GeoLibre-Plugin/dist/index.js', 'GeoLibre-Plugin/dist'),

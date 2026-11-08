@@ -19,7 +19,7 @@ Loaded events start hidden. Enable individual events or use **Show All** for
 the record set, check the active **From/Through** filter, and use **Focus Set**
 to frame the records. Reference cell sites and markers have separate controls.
 The panel's **About & licenses** section identifies the GPL-licensed plugin and
-the bundled GeoLibre 3.0.0 viewer under its MIT License.
+the bundled GeoLibre 3.7.0 viewer under its MIT License.
 
 - `plugin.json` defines the plugin package and version.
 - `dist/index.js` and `dist/style.css` are the maintained, readable runtime
