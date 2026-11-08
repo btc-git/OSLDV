@@ -24,7 +24,7 @@ def heading_anchors(text):
 
 
 class DocumentationTests(unittest.TestCase):
-    def test_readme_keeps_basic_import_and_prerelease_guidance(self):
+    def test_readme_keeps_basic_import_and_stable_release_guidance(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         how_to_use = readme.split("## How to Use\n", 1)[1].split("\n## ", 1)[0]
         self.assertEqual(
@@ -39,11 +39,13 @@ class DocumentationTests(unittest.TestCase):
             with self.subTest(action=action):
                 self.assertIn(action, how_to_use)
         self.assertIn("(docs/TECHNICAL.md)", how_to_use)
-        self.assertIn(
-            "Development preview builds are marked **Pre-release** on the\n"
-            "[GitHub Releases page](https://github.com/btc-git/OSLDV/releases).\n"
-            "They do not replace the stable download above.",
-            readme,
+        self.assertIn("Download the latest stable release", readme)
+        self.assertIn("continuous development and may contain errors", readme)
+        self.assertIn("All findings must be analyzed and verified", readme)
+        self.assertIn("All outputs require verification", readme)
+        self.assertIn("NO RF COVERAGE ESTIMATES", readme)
+        self.assertNotRegex(
+            readme, r"(?i)\b(?:beta|pre-release|prerelease|development preview)\b"
         )
         for guide in ("TECHNICAL", "EXPORTING", "BUILDING"):
             self.assertIn(f"(docs/{guide}.md)", readme)

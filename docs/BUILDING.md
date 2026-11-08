@@ -46,7 +46,8 @@ Before each release:
 - Update `APP_VERSION` in [version.py](../version.py).
 - Match `ProductVersion` in [version_info.txt](../version_info.txt), and update its
   `filevers`, `prodvers`, and `FileVersion` numeric values. For example,
-  `2.0.0-beta.4` uses `(2, 0, 0, 4)` and `2.0.0.4`.
+  `2.0.0` uses `(2, 0, 0, 0)` and `2.0.0.0`.
+- Use `flags=0x0` in the Windows version metadata for a full release.
 - Update the version footer in [README.md](../README.md) and add the release entry in
   [CHANGELOG.md](../CHANGELOG.md). Keep historical entries unchanged.
 - After building, confirm the app's displayed version and the executable's

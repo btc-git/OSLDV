@@ -454,10 +454,11 @@ class ImportAndSaveUITests(unittest.TestCase):
         self.assertNotIn('/releases/latest/download/', readme)
         self.assertIn('`OSLDV.exe`', readme)
 
-    def test_beta_version_declarations_match(self):
+    def test_stable_version_declarations_match(self):
         from version import APP_VERSION
         root = Path(__file__).resolve().parents[1]
-        numeric_parts = APP_VERSION.replace('-beta.', '.').split('.')
+        self.assertRegex(APP_VERSION, r'^\d+\.\d+\.\d+$')
+        numeric_parts = APP_VERSION.split('.')
         numeric_parts += ['0'] * (4 - len(numeric_parts))
         numeric_version = '.'.join(numeric_parts)
         numeric_tuple = ', '.join(numeric_parts)
@@ -466,6 +467,7 @@ class ImportAndSaveUITests(unittest.TestCase):
         self.assertIn(f'filevers=({numeric_tuple})', windows_metadata)
         self.assertIn(f'prodvers=({numeric_tuple})', windows_metadata)
         self.assertIn(f"StringStruct('FileVersion', '{numeric_version}')", windows_metadata)
+        self.assertIn('flags=0x0,', windows_metadata)
         self.assertIn(f'**Version {APP_VERSION}**',
                       (root / 'README.md').read_text(encoding='utf-8'))
         self.assertIn(f'## [{APP_VERSION}]',

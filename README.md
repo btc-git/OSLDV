@@ -19,10 +19,6 @@ A standalone desktop application for **quick triage and initial visualization** 
 Download the standalone executable from the [latest stable release](https://github.com/btc-git/OSLDV/releases/latest) - no Python installation required.
 New builds are named `OSLDV.exe`; older releases may use the previous filename.
 
-Development preview builds are marked **Pre-release** on the
-[GitHub Releases page](https://github.com/btc-git/OSLDV/releases).
-They do not replace the stable download above.
-
 The executable is not code-signed. See [checksum verification](docs/BUILDING.md#building-the-executable) before running a downloaded build.
 
 ## Privacy & Security
@@ -93,5 +89,5 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 ---
 Copyright (c) 2025-2026 CrimLawTech LLC
-**Version 2.0.0-beta.4**
+**Version 2.0.0**
 _Open Source Location Data Visualization Tool_

@@ -4,17 +4,26 @@
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-11-07
+
+### Added
+- Paired KML and GeoJSON visualizations with TXT audit logs, bundled GeoLibre viewing, and reopenable companion projects.
+- CSV/XLS/XLSX column mapping, source/display timezone handling, import date/time filtering, and optional cell-site-list joins.
+- Static reference-cell-site and marker record sets, with viewer event filtering, timeline playback, labels, and focused navigation.
+
 ### Changed
+- Set the application and Windows release metadata to 2.0.0 while retaining the in-development and independent-verification disclaimers.
 - Updated visible branding and repository links to OSLDV while retaining existing plugin, settings, project, export-metadata, and Windows taskbar identities for compatibility.
 - Renamed the Windows executable to `OSLDV.exe` and changed the download link to the latest release page rather than a filename-specific asset URL.
 - Newly generated GeoLibre projects now use `OSLDV` for project and layer `generatedBy` provenance. Existing project files are not rewritten; plugin IDs, settings keys, and export schemas are unchanged.
 
 ### Fixed
 - Window, taskbar, executable, and shortcut icons now share a multi-resolution WiFi asset rendered from vector artwork, with tighter framing and native sizes from 16px to 256px instead of upscaling tiny images.
+- Preserved source coordinate text and leading-zero identifiers, bound audit hashes to loaded inputs, and protected paired output writes with staged saves and explicit recovery reporting.
 
 ### Documentation
 - Clarified that GeoLibre's standalone update installer does not update the pinned bundled viewer, with supported startup-check settings and shared-settings/security caveats.
-- Shortened the README around the basic import workflow and moved the complete technical, export/audit, and build references into `docs/`, retaining the existing content and pre-release guidance.
+- Shortened the README around the basic import workflow and moved the complete technical, export/audit, and build references into `docs/`, retaining the complete reference material.
 
 ## [2.0.0-beta.4] - 2026-10-04
 
