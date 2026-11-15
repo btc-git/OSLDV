@@ -20,6 +20,7 @@ from PyQt6.QtWidgets import (
 )
 
 from kml_generator import KMLGenerator, TimestampResolutionError
+from file_dialog_paths import default_open_directory
 from source_io import read_csv_text, read_hashed_source
 
 
@@ -432,7 +433,19 @@ class ImportWizardDialog(QDialog):
         mapping_layout = QGridLayout(mapping_group)
         mapping_layout.addWidget(QLabel("Application field"), 0, 0)
         mapping_layout.addWidget(QLabel("Source column"), 0, 1)
-        for row, field in enumerate(self.FIELD_ALIASES, 1):
+        self.mapping_suggestion_warning = QLabel(
+            "<b>Verify every mapping.</b> Suggested selections are guesses "
+            "based only on recognized column names; OSLDV does not inspect "
+            "the values to prove what a column means."
+        )
+        self.mapping_suggestion_warning.setWordWrap(True)
+        self.mapping_suggestion_warning.setStyleSheet(
+            "color: #ffcc66; padding: 4px 0;"
+        )
+        mapping_layout.addWidget(
+            self.mapping_suggestion_warning, 1, 0, 1, 2
+        )
+        for row, field in enumerate(self.FIELD_ALIASES, 2):
             field_label = QLabel(self.FIELD_LABELS[field])
             combo = QComboBox()
             combo.addItem("Not mapped", None)
@@ -443,7 +456,9 @@ class ImportWizardDialog(QDialog):
             mapping_layout.addWidget(combo, row, 1)
         self.mapping_note = QLabel("Map Timestamp, or map both Date and Time. Required fields are marked after selecting a record type.")
         self.mapping_note.setWordWrap(True)
-        mapping_layout.addWidget(self.mapping_note, len(self.FIELD_ALIASES) + 1, 0, 1, 2)
+        mapping_layout.addWidget(
+            self.mapping_note, len(self.FIELD_ALIASES) + 2, 0, 1, 2
+        )
         content_layout.addWidget(mapping_group)
 
         timezone_group = QGroupBox("Timestamp Interpretation and Display")
@@ -849,7 +864,10 @@ class ImportWizardDialog(QDialog):
 
     def browse_file(self):
         file_path, _ = QFileDialog.getOpenFileName(
-            self, "Select Original Records", "", "Record Files (*.csv *.xls *.xlsx);;All Files (*)"
+            self,
+            "Select Original Records",
+            default_open_directory(),
+            "Record Files (*.csv *.xls *.xlsx);;All Files (*)",
         )
         if file_path:
             self.load_file(file_path)
@@ -858,7 +876,7 @@ class ImportWizardDialog(QDialog):
         file_path, _ = QFileDialog.getOpenFileName(
             self,
             "Select Cell Site List",
-            "",
+            default_open_directory(),
             "Cell Site Lists (*.csv *.xls *.xlsx);;All Files (*)",
         )
         if file_path:

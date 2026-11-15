@@ -4,32 +4,32 @@ Licensed under the GNU General Public License v3.0 - see LICENSE file for detail
 """
 
 from PyQt6.QtWidgets import (
-    QDialog, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QScrollArea, QWidget, QCheckBox
+    QDialog, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QScrollArea,
+    QWidget, QCheckBox, QTabWidget, QTextBrowser,
 )
-from PyQt6.QtCore import Qt, pyqtSignal
-from PyQt6.QtGui import QFont
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QColor, QFont, QPalette, QTextCursor
 
 from license_dialog import LicenseDialog
+from resource_paths import bundled_resource_path
 from version import APP_VERSION
 
-# License Label
-class LicenseClickableLabel(QLabel):
-    clicked = pyqtSignal()
-    def mouseReleaseEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton:
-            self.clicked.emit()
-        super().mouseReleaseEvent(event)
 
 class DisclaimerDialog(QDialog):
-
+    """Display the short disclaimer and all included documentation."""
+    DOCUMENTS = (
+        ("Getting Started", "README.md"),
+        ("Technical Reference", "docs/TECHNICAL.md"),
+        ("Export & Audit", "docs/EXPORTING.md"),
+        ("Building from Source", "docs/BUILDING.md"),
+    )
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowTitle("Important Disclaimers")
+        self.setWindowTitle("OSLDV Information & Documentation")
         self.setModal(True)
-        self.setMinimumSize(600, 430)
-        self.setMaximumSize(800, 650)
-        self.resize(700, 500)
+        self.setMinimumSize(700, 500)
+        self.resize(900, 700)
 
         layout = QVBoxLayout(self)
 
@@ -43,16 +43,9 @@ class DisclaimerDialog(QDialog):
         header_label.setStyleSheet("color: #0078d4; margin: 10px;")
         layout.addWidget(header_label)
 
-        # Subtitle
-        subtitle_label = QLabel("Important Disclaimers")
-        subtitle_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        subtitle_font = QFont()
-        subtitle_font.setPointSize(12)
-        subtitle_label.setFont(subtitle_font)
-        subtitle_label.setStyleSheet("color: #cccccc; margin-bottom: 15px;")
-        layout.addWidget(subtitle_label)
+        self.tabs = QTabWidget()
+        layout.addWidget(self.tabs)
 
-        # Scrollable content area
         scroll_area = QScrollArea()
         scroll_area.setWidgetResizable(True)
         scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
@@ -66,6 +59,12 @@ class DisclaimerDialog(QDialog):
 
 <h3 style='color: #ff6b6b; margin-top: 0;'>In active development and testing</h3>
 <p><strong>Not a validated forensic tool; verify all findings independently.</strong></p>
+<p>
+<strong>Found a bug, have a feature request, or need help using the app?</strong>
+<a href="https://github.com/btc-git/OSLDV/issues" style="color:#66bfff; text-decoration:underline;">View open issues</a>
+or <a href="https://github.com/btc-git/OSLDV/issues/new/choose" style="color:#66bfff; text-decoration:underline;">open a new issue</a>.
+Issues are public. Redact sensitive details from any information, screenshots, or logs you submit.
+</p>
 <ul>
     <li><strong>Preliminary visualization only:</strong> OSLDV is a location-data triage and visualization aid, not a validated forensic tool.</li>
     <li><strong>No RF coverage estimates:</strong> Shaded areas, wedges, circles, lines, and bands are visual aids only. They do not show radio signal coverage or calculate a device location.</li>
@@ -76,11 +75,7 @@ class DisclaimerDialog(QDialog):
     <li>OSLDV was developed with AI assistance and has undergone human review and testing. The program itself does not use AI.</li>
 </ul>
 
-<p>
-Full disclaimers and documentation:
-<a href="https://github.com/btc-git/OSLDV#readme" style="color:#4ecdc4;">README</a> &middot;
-<a href="https://github.com/btc-git/OSLDV/tree/master/docs" style="color:#4ecdc4;">docs</a>
-</p>
+<p>Use the tabs in this window for the complete included documentation.</p>
 
 <p style='text-align: center; margin-top: 20px; color: #999999; font-style: italic;'>
 Version {APP_VERSION}<br/>
@@ -110,9 +105,47 @@ OSLDV is licensed under GNU GPL v3.0 and includes GeoLibre 3.7.0 under the MIT L
         content_layout.addWidget(disclaimer_label)
 
         scroll_area.setWidget(content_widget)
-        layout.addWidget(scroll_area)
+        self.tabs.addTab(scroll_area, "Important Information")
 
-        # Buttons
+        for title, relative_path in self.DOCUMENTS:
+            browser = QTextBrowser()
+            browser.setOpenExternalLinks(True)
+            palette = browser.palette()
+            palette.setColor(QPalette.ColorRole.Link, QColor("#66bfff"))
+            palette.setColor(QPalette.ColorRole.LinkVisited, QColor("#a9d6ff"))
+            browser.setPalette(palette)
+            browser.document().setDefaultStyleSheet(
+                "a { color: #66bfff; }"
+                "a:visited { color: #a9d6ff; }"
+            )
+            path = bundled_resource_path(relative_path)
+            try:
+                browser.setMarkdown(path.read_text(encoding="utf-8"))
+            except OSError as error:
+                browser.setPlainText(
+                    f"The included document could not be opened:\n"
+                    f"{path}\n\n{error}"
+                )
+            block = browser.document().begin()
+            while block.isValid():
+                iterator = block.begin()
+                while not iterator.atEnd():
+                    fragment = iterator.fragment()
+                    if fragment.isValid() and fragment.charFormat().isAnchor():
+                        cursor = QTextCursor(browser.document())
+                        cursor.setPosition(fragment.position())
+                        cursor.setPosition(
+                            fragment.position() + fragment.length(),
+                            QTextCursor.MoveMode.KeepAnchor,
+                        )
+                        cursor.setCharFormat(fragment.charFormat())
+                        link_format = cursor.charFormat()
+                        link_format.setForeground(QColor("#66bfff"))
+                        cursor.mergeCharFormat(link_format)
+                    iterator += 1
+                block = block.next()
+            self.tabs.addTab(browser, title)
+
         button_layout = QHBoxLayout()
         self.understand_button = QPushButton("Close")
         self.understand_button.setStyleSheet("""

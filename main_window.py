@@ -25,6 +25,7 @@ from PyQt6.QtCore import Qt, QSettings, QTimer, pyqtSignal
 from PyQt6.QtGui import QFont, QColor, QIcon, QShowEvent
 
 from dialogs import DisclaimerDialog
+from file_dialog_paths import default_open_directory, suggested_save_path
 from geolibre_launcher import (
     GeoLibreLaunchWorker, build_geolibre_project_text, bundled_resource_path,
 )
@@ -174,9 +175,11 @@ class MainWindow(QMainWindow):
         """)
         
         # Info button
-        self.info_button = QPushButton("ℹ️ Info")
-        self.info_button.setMaximumWidth(100)
-        self.info_button.setToolTip("Show important information and disclaimers")
+        self.info_button = QPushButton("ℹ️ Info & Docs")
+        self.info_button.setMaximumWidth(125)
+        self.info_button.setToolTip(
+            "Show important information, disclaimers, and included documentation"
+        )
         self.info_button.clicked.connect(self.show_disclaimer_dialog)
         self.info_button.setStyleSheet("""
             QPushButton {
@@ -963,7 +966,7 @@ class MainWindow(QMainWindow):
         file_path, _ = QFileDialog.getOpenFileName(
             self, 
             "Select Input File", 
-            "", 
+            default_open_directory(),
             "CSV or Excel (*.csv *.xls *.xlsx);;All Files (*)"
         )
         
@@ -1499,7 +1502,7 @@ class MainWindow(QMainWindow):
         file_path, _ = QFileDialog.getOpenFileName(
             self,
             'Import Marker List',
-            '',
+            default_open_directory(),
             'CSV or Excel (*.csv *.xls *.xlsx);;All Files (*)',
         )
         if file_path:
@@ -1814,7 +1817,9 @@ class MainWindow(QMainWindow):
         else:
             suggested_filename = f"{base_name}_visualization.geojson"
             
-        start_dir = str(Path(self.current_generation_source_file).parent / suggested_filename)
+        start_dir = suggested_save_path(
+            suggested_filename, self.current_generation_source_file
+        )
         
         selected_output_file, _ = QFileDialog.getSaveFileName(
             self,
@@ -2361,7 +2366,7 @@ class MainWindow(QMainWindow):
         output_file, _ = QFileDialog.getSaveFileName(
             self,
             f"Save {template['description']}",
-            template['filename'],
+            suggested_save_path(template['filename'], self.data_file),
             "Excel Files (*.xlsx);;All Files (*)"
         )
         

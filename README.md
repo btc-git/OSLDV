@@ -8,6 +8,12 @@ This application was developed with AI assistance and has undergone human review
 ⚠️ **In active development and testing. Not a validated forensic tool; verify all findings independently.**
 OSLDV is a preliminary location-data triage and visualization aid.
 
+**Found a bug, have a feature request, or need help using the app?**
+[View open issues](https://github.com/btc-git/OSLDV/issues) or
+[open a new issue](https://github.com/btc-git/OSLDV/issues/new/choose).
+Issues are public. Redact sensitive details from any information, screenshots,
+or logs you submit.
+
 ## Download
 
 1. **[Download OSLDV.exe](https://github.com/btc-git/OSLDV/releases/latest/download/OSLDV.exe)**
@@ -32,12 +38,14 @@ Location-data processing and export run locally; the application does not upload
 1. Download and run `OSLDV.exe` (see [Download](#download)).
 2. Drag and drop a CSV or Excel file into the program, or use the Browse for File button.
 3. CSV and XLSX files using the application's standard template column names are recognized automatically. Files in the older XLS format open the mapping wizard.
-4. For other files, the **Import Original Records** mapping wizard opens automatically. Select the worksheet and the row containing the column names, choose the record type, and check that each source column is matched to the correct field. You can optionally limit the import to a date/time range.
+4. For other files, the **Import Original Records** mapping wizard opens automatically. Select the worksheet and the row containing the column names, choose the record type, and verify every suggested column mapping. Suggestions are guesses based only on recognized column names; the application does not inspect values to prove what a column means. You can optionally limit the import to a date/time range.
 5. Review the timezone, date order (month or day first), units, and visualization settings. Optionally add or import markers for the current source records on the **Markers** tab.
 6. Click **Process** to create the KML, GeoJSON, and TXT generation log, or **Process and Open in Viewer** to create them and immediately open the GeoJSON in the included viewer. Use **Open Viewer**, then **Load GeoJSON**, to review existing GeoJSON files without generating new outputs. GeoJSON is recommended for GeoLibre; KML can be opened in Google Earth Pro.
 7. Review warnings and row outcomes in the TXT log. All visualizations remain preliminary and require independent expert review.
 
 See the [technical reference](docs/TECHNICAL.md) for full import, mapping, date/time, cell-site-list, marker, and template details.
+The same Getting Started, Technical, Export, and Building guides are included
+inside the application through **Info**.
 
 ## Features
 
@@ -82,5 +90,5 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 ---
 Copyright (c) 2025-2026 CrimLawTech LLC
-**Version 2.0.1**
+**Version 2.0.2**
 _Open Source Location Data Visualization Tool_

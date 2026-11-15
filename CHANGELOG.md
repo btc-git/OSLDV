@@ -4,6 +4,16 @@
 
 ## [Unreleased]
 
+## [2.0.2] - 2026-11-15
+
+### Changed
+- Open dialogs now start on the Desktop when available, and output and template save dialogs default beside the selected source file.
+- Custom-import column suggestions are now explicitly identified as unverified, column-name-only guesses that users must check against their source records.
+- Getting Started, Technical, Export, and Building documentation is now included in the application and packaged Windows executable instead of requiring GitHub access.
+- Increased hyperlink contrast throughout the built-in documentation tabs for easier reading with the dark theme.
+- Added prominent README and in-app guidance for public GitHub issue reporting, including reminders to redact sensitive submitted information, screenshots, or logs.
+- Consolidated runtime and release-build dependencies into one pinned requirements file and standardized local release output as `dist\OSLDV.exe` with its matching SHA-256 sidecar.
+
 ## [2.0.1] - 2026-11-08
 
 ### Changed

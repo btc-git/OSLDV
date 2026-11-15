@@ -13,7 +13,7 @@ htmlcov/
 # Build & Distribution
 /build/
 /dist/
-/dist-updated/
+/dist-*/
 *.manifest
 *.exe
 *.zip
@@ -31,7 +31,6 @@ node_modules/
 /*.geolibre
 /*.txt
 !/version_info.txt
-!/requirements-build.txt
 diagnostics/
 exports/
 local-data/

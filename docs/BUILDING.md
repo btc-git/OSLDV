@@ -10,11 +10,10 @@ Run the commands below from the repository root, not from `docs/`.
 - Node.js for the GeoLibre plugin contract test
 
 Reproducible Windows release builds require Python 3.11.3 and the complete
-`requirements-build.txt` lock. See `requirements.txt` for runtime versions and
-`THIRD_PARTY_NOTICES.md` for the dependency inventory.
+`requirements.txt` lock. See `THIRD_PARTY_NOTICES.md` for the dependency
+inventory.
 
-The files are available at [requirements-build.txt](../requirements-build.txt),
-[requirements.txt](../requirements.txt), and
+The files are available at [requirements.txt](../requirements.txt) and
 [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
 
 ## Setup & Installation
@@ -57,7 +56,7 @@ Before each release:
 1. Use Python 3.11.3.
 2. Install the complete pinned build environment:
    ```bash
-   python -m pip install -r requirements-build.txt
+   python -m pip install -r requirements.txt
    ```
 3. Build the executable:
    ```bash
@@ -75,5 +74,14 @@ code-signed. To calculate its SHA-256 without modifying it:
 Get-FileHash -Algorithm SHA256 .\dist\OSLDV.exe
 ```
 
-For a downloaded build, compare its hash with the checksum supplied for that
-build before running it. Computing a hash alone does not establish trust.
+After a successful release build, write the matching checksum sidecar:
+
+```powershell
+$hash = (Get-FileHash -Algorithm SHA256 .\dist\OSLDV.exe).Hash.ToLowerInvariant()
+Set-Content -Encoding Ascii .\dist\OSLDV.exe.sha256 "$hash *OSLDV.exe"
+```
+
+The ignored `dist\` folder should contain only `OSLDV.exe` and
+`OSLDV.exe.sha256`. For a downloaded build, compare its hash with the checksum
+supplied for that build before running it. Computing a hash alone does not
+establish trust.

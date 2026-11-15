@@ -450,8 +450,10 @@ class ImportAndSaveUITests(unittest.TestCase):
         self.assertIn("name='OSLDV'", spec)
         self.assertIn("StringStruct('InternalName', 'OSLDV')", windows_metadata)
         self.assertIn("StringStruct('OriginalFilename', 'OSLDV.exe')", windows_metadata)
-        self.assertIn('href="https://github.com/btc-git/OSLDV/releases/latest"', readme)
-        self.assertNotIn('/releases/latest/download/', readme)
+        self.assertIn(
+            'https://github.com/btc-git/OSLDV/releases/latest/download/OSLDV.exe',
+            readme,
+        )
         self.assertIn('`OSLDV.exe`', readme)
 
     def test_stable_version_declarations_match(self):

@@ -57,6 +57,21 @@ class DocumentationTests(unittest.TestCase):
             "OSLDV is a preliminary location-data triage and visualization aid.",
             readme,
         )
+        self.assertIn(
+            "[View open issues]"
+            "(https://github.com/btc-git/OSLDV/issues)",
+            readme,
+        )
+        self.assertIn(
+            "[open a new issue]"
+            "(https://github.com/btc-git/OSLDV/issues/new/choose)",
+            readme,
+        )
+        self.assertIn(
+            "Issues are public. Redact sensitive details from any information, "
+            "screenshots,\nor logs you submit.",
+            readme,
+        )
         for disclaimer in (
             "continuous development and may contain errors",
             "visual aids only and are not RF coverage estimates",
@@ -78,7 +93,6 @@ class DocumentationTests(unittest.TestCase):
         for command in (
             "python -m pip install -r requirements.txt",
             "python app.py",
-            "python -m pip install -r requirements-build.txt",
             "python -m PyInstaller --clean app.spec",
             "python -m unittest discover -s tests -v",
             "node tests/test_plugin_simplified_chrome.mjs",
@@ -88,8 +102,9 @@ class DocumentationTests(unittest.TestCase):
                 self.assertIn(command, guide)
         self.assertIn("Always build through `app.spec`", guide)
         self.assertIn("`OSLDV.exe`", guide)
+        self.assertIn("`OSLDV.exe.sha256`", guide)
 
-    def test_technical_reference_retains_removed_dialog_guidance(self):
+    def test_technical_reference_contains_required_safety_and_geometry_guidance(self):
         technical = (ROOT / "docs" / "TECHNICAL.md").read_text(encoding="utf-8")
         for detail in (
             "wedge is 120 degrees wide and extends 1 mile",

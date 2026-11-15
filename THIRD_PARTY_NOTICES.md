@@ -1,7 +1,7 @@
 # Third-Party Notices
 
 This inventory describes the components used by the pinned Windows build in
-`requirements-build.txt`. The build copies the license files supplied by these
+`requirements.txt`. The build copies the license files supplied by these
 distributions into `Third-Party-Licenses` inside the packaged application, and
 the application displays them through **Licenses & Third-Party Notices**.
 Authoritative package license files control if this summary differs from them.

@@ -51,7 +51,7 @@ date filtering.
 
 ## Importing Original Records
 
-For original carrier records that do not match a template, the import wizard opens automatically. It supports CSV, XLS, and XLSX files. Select the worksheet, the row containing the column names, and the record type, then match the source columns to the application fields. Its live preview shows the first 25 source rows with each original column name and the application field currently matched to it. Azimuth may be left unmapped when it is unavailable; the application will use a 360-degree visualization. Imported records are prepared in memory and the original file is not modified.
+For original carrier records that do not match a template, the import wizard opens automatically. It supports CSV, XLS, and XLSX files. Select the worksheet, the row containing the column names, and the record type, then match the source columns to the application fields. The wizard suggests mappings only when a normalized source column name exactly matches a recognized alias: capitalization and punctuation are ignored, but there is no fuzzy matching or analysis of the column values. These suggestions are guesses, not validation; verify every mapping against the source records. Its live preview shows the first 25 source rows with each original column name and the application field currently matched to it. Azimuth may be left unmapped when it is unavailable; the application will use a 360-degree visualization. Imported records are prepared in memory and the original file is not modified.
 
 ### Date/Time Range Filtering
 

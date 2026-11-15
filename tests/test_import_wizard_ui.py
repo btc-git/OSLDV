@@ -383,6 +383,16 @@ class ImportWizardDialogUITests(unittest.TestCase):
                     distance, dialog.mapping_combos["Distance"].currentData()
                 )
 
+    def test_mapping_suggestions_are_labeled_as_unverified_guesses(self):
+        dialog = ImportWizardDialog()
+        self.addCleanup(dialog.close)
+
+        warning = dialog.mapping_suggestion_warning.text()
+        self.assertIn("Verify every mapping", warning)
+        self.assertIn("guesses", warning)
+        self.assertIn("column names", warning)
+        self.assertIn("does not inspect the values", warning)
+
     def test_excel_header_row_8_preview_uses_1_based_physical_rows(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             path = Path(tmpdir) / "header_row_8.xlsx"

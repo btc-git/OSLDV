@@ -109,7 +109,7 @@ For a reproducible Windows release build, use Python 3.11.3, install the
 complete build lock, and build only through the tracked spec:
 
 ```powershell
-python -m pip install -r requirements-build.txt
+python -m pip install -r requirements.txt
 python -m PyInstaller --clean app.spec
 ```
 

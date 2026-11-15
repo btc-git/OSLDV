@@ -1,5 +1,20 @@
 PyQt6==6.11.0
+PyQt6-Qt6==6.11.2
+PyQt6-sip==13.12.0
 pandas==3.0.5
+numpy==2.4.6
 openpyxl==3.1.5
+et-xmlfile==2.0.0
 xlrd==2.0.2
 tzdata==2025.2
+python-dateutil==2.9.0.post0
+six==1.17.0
+
+# Locked PyInstaller toolchain for reproducible Windows builds.
+PyInstaller==6.22.3
+pyinstaller-hooks-contrib==2026.7
+altgraph==0.17.5
+packaging==26.3
+pefile==2024.8.26
+pywin32-ctypes==0.2.3
+setuptools==65.5.1

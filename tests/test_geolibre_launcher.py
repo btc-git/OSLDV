@@ -20,9 +20,11 @@ from openpyxl import load_workbook
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PyQt6.QtCore import QTimer
+from PyQt6.QtGui import QPalette
 from PyQt6.QtTest import QSignalSpy
 from PyQt6.QtWidgets import (
-    QApplication, QAbstractButton, QFileDialog, QHBoxLayout, QLabel, QScrollArea, QToolButton,
+    QApplication, QAbstractButton, QFileDialog, QHBoxLayout, QLabel,
+    QScrollArea, QTextBrowser, QToolButton,
 )
 
 import geolibre_launcher
@@ -40,6 +42,7 @@ from geolibre_launcher import (
 )
 from license_dialog import LicenseDialog
 from dialogs import DisclaimerDialog
+from file_dialog_paths import default_open_directory
 from main_window import MainWindow
 from import_wizard import ImportWizardDialog, SourceFileLoadWorker
 from version import APP_NAME, APP_USER_MODEL_ID
@@ -408,7 +411,7 @@ class GenerationActionTests(unittest.TestCase):
         self.addCleanup(dialog.close)
         self.assertTrue(any(
             "OSLDV is licensed" in label.text()
-            and 'href="https://github.com/btc-git/OSLDV#readme"' in label.text()
+            and 'href="license://show"' in label.text()
             for label in dialog.findChildren(QLabel)
         ))
 
@@ -465,7 +468,8 @@ class GenerationActionTests(unittest.TestCase):
             ) as save_dialog:
                 window.download_template(key)
                 self.assertEqual(
-                    (window, f"Save {description}", filename,
+                    (window, f"Save {description}",
+                     str(Path(default_open_directory()) / filename),
                      "Excel Files (*.xlsx);;All Files (*)"),
                     save_dialog.call_args.args,
                 )
@@ -551,7 +555,7 @@ class GenerationActionTests(unittest.TestCase):
             select_color.call_args_list,
         )
 
-    def test_disclaimer_is_short_and_links_full_documentation(self):
+    def test_info_dialog_combines_short_disclaimer_and_documentation(self):
         dialog = DisclaimerDialog()
         self.addCleanup(dialog.close)
         text = "\n".join(label.text() for label in dialog.findChildren(QLabel))
@@ -564,23 +568,43 @@ class GenerationActionTests(unittest.TestCase):
             "does not replace professional forensic analysis",
             "developed with AI assistance",
             "program itself does not use AI",
-            "Version 2.0.1",
-            'href="https://github.com/btc-git/OSLDV#readme"',
-            'href="https://github.com/btc-git/OSLDV/tree/master/docs"',
+            "Version 2.0.2",
+            "Use the tabs in this window",
+            "Found a bug, have a feature request, or need help using the app?",
+            'href="https://github.com/btc-git/OSLDV/issues"',
+            "View open issues",
+            'href="https://github.com/btc-git/OSLDV/issues/new/choose"',
+            "open a new issue",
+            "Issues are public",
+            "Redact sensitive details from any information, screenshots, or logs you submit",
         ):
             with self.subTest(phrase=phrase):
                 self.assertIn(phrase, text)
-        for removed_detail in (
-            "Usage Overview",
-            "Visualization Details",
-            "Technical Guidance",
-            "Supported Date and Time Formats",
-            "Troubleshooting",
-            "Process and Open in Viewer",
-            "Check Matching Rows",
-        ):
-            with self.subTest(removed_detail=removed_detail):
-                self.assertNotIn(removed_detail, text)
+        self.assertEqual(5, dialog.tabs.count())
+        self.assertEqual("Important Information", dialog.tabs.tabText(0))
+        self.assertEqual("Getting Started", dialog.tabs.tabText(1))
+        self.assertEqual("Technical Reference", dialog.tabs.tabText(2))
+        self.assertEqual(0, dialog.tabs.currentIndex())
+        self.assertIn(
+            "Importing Original Records",
+            dialog.tabs.widget(2).toPlainText(),
+        )
+        for browser in dialog.findChildren(QTextBrowser):
+            self.assertEqual(
+                "#66bfff",
+                browser.palette().color(QPalette.ColorRole.Link).name(),
+            )
+            self.assertEqual(
+                "#a9d6ff",
+                browser.palette().color(QPalette.ColorRole.LinkVisited).name(),
+            )
+        rendered_link = dialog.tabs.widget(1).document().find(
+            "Download OSLDV.exe"
+        )
+        self.assertEqual(
+            "#66bfff",
+            rendered_link.charFormat().foreground().color().name(),
+        )
 
     def test_main_timezone_defaults_match_import_wizard(self):
         with patch.object(MainWindow, "show_disclaimer_dialog"):

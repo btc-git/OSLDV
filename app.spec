@@ -105,6 +105,10 @@ a = Analysis(
     datas=[
         ('LICENSE', '.'),
         ('THIRD_PARTY_NOTICES.md', '.'),
+        ('README.md', '.'),
+        ('docs/TECHNICAL.md', 'docs'),
+        ('docs/EXPORTING.md', 'docs'),
+        ('docs/BUILDING.md', 'docs'),
         ('wifi_icon.ico', '.'),
     ] + collect_data_files('tzdata') + xlrd_datas + viewer_datas + dependency_license_datas,
     hiddenimports=xlrd_hiddenimports,

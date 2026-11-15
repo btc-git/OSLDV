@@ -17,6 +17,7 @@ from pathlib import Path
 
 from PyQt6.QtCore import QThread, pyqtSignal
 from output_io import write_output_set
+from resource_paths import bundled_resource_path
 
 
 GEOLIBRE_VERSION = "3.7.0"
@@ -30,13 +31,6 @@ _viewer_process = None
 
 class GeoLibreLaunchError(RuntimeError):
     """Raised when the bundled GeoLibre viewer cannot be prepared or started."""
-
-
-def bundled_resource_path(relative_path):
-    """Resolve a resource in a source checkout or a frozen PyInstaller app."""
-    bundle_root = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent))
-    return bundle_root / relative_path
-
 
 def default_runtime_root():
     """Return the per-user directory owned by the bundled viewer integration."""
